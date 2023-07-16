@@ -1,4 +1,5 @@
 import pygame, os, sys
+import random, time
 from pygame.locals import *
 
 pygame.init()
@@ -19,8 +20,11 @@ while True:
 
     for y, row in enumerate(map_data):  # iterate through map data
         for x, tile in enumerate(row):
-            if tile:
+            if tile:  # render left to right, top to bottom
                 pygame.draw.rect(display, (255, 255, 255), pygame.Rect(x * 10, y * 10, 10, 10), 1)  # render the tiles
+                display.blit(grass_img, (150 + x * 10 - y * 10, 100 + x * 5 + y * 5))
+                if random.randint(0, 1):
+                    display.blit(grass_img, (150 + x * 10 - y * 10, 100 + x * 5 + y * 5 - 14))  # example of vertical tiles
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -33,3 +37,4 @@ while True:
 
     screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
     pygame.display.update()
+    time.sleep(1)
